@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { productThunk } from '../redux/productThunk'
+import { useGetAllProductsQuery } from '../redux/createApi.demo'
 
 export default function Products() {
     const dispatch = useDispatch()
@@ -11,6 +12,9 @@ export default function Products() {
     const fetchProducts = () => {
         dispatch(productThunk(10));
     }
+
+    const { data } = useGetAllProductsQuery()
+    console.log("Data: ", data);
 
     console.log(products);
     // console.log(error);
