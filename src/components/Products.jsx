@@ -6,14 +6,14 @@ import { useGetAllProductsQuery } from '../redux/createApi.demo'
 export default function Products() {
     const dispatch = useDispatch()
     const products = useSelector((state) => state.products.products)
-    const error = useSelector((state) => state.products.error)
+    // const error = useSelector((state) => state.products.error)
     const status = useSelector((state) => state.products.status)
 
     const fetchProducts = () => {
         dispatch(productThunk(10));
     }
 
-    const { data } = useGetAllProductsQuery()
+    const { data, isFetching, isLoading, isSuccess, isError, error } = useGetAllProductsQuery()
     console.log("Data: ", data);
 
     console.log(products);
