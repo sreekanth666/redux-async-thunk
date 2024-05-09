@@ -13,11 +13,8 @@ export const api = createApi({
         getProductById: builder.query({
             query: (productId) => `products/${productId}`,
             keepUnusedDataFor: 60
-            query: (productId) => `products/${productId}`,
-            keepUnusedDataFor: 60
         })
-    }),
-    tagTypes: ["Products"],
+    })
 })
 
 export const { useGetAllProductsQuery, useGetProductByIdQuery } = api
