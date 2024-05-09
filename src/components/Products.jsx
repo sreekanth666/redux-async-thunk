@@ -7,6 +7,7 @@ export default function Products() {
     const dispatch = useDispatch()
     const products = useSelector((state) => state.products.products)
     // const error = useSelector((state) => state.products.error)
+    // const error = useSelector((state) => state.products.error)
     const status = useSelector((state) => state.products.status)
 
     const fetchProducts = () => {
