@@ -10,7 +10,7 @@ export default function FetchProducts() {
         dispatch(productThunk(10));
     }
 
-    const { data, isLoading, refetch, isFetching, error, isError, isSuccess } = useGetProductByIdQuery(10)
+    const { data, isLoading, refetch, isFetching, error, isError, isSuccess, isUninitialized } = useGetProductByIdQuery(10)
     console.log("Data from child: ", data);
     console.log("Fetching from child: ", isFetching);
 
