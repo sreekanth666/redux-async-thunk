@@ -1,28 +1,34 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { productThunk } from '../redux/productThunk'
-import { useGetAllProductsQuery, useGetProductByIdQuery } from '../redux/createApi.demo'
+import { useAddProductMutation } from '../redux/createApi.demo'
 import { useNavigate } from 'react-router-dom'
 
 export default function Products() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const products = useSelector((state) => state.products.products)
-    // const error = useSelector((state) => state.products.error)
-    // const error = useSelector((state) => state.products.error)
     const status = useSelector((state) => state.products.status)
 
     const fetchProducts = () => {
-        dispatch(productThunk(10));
+        addProduct({
+            "id": 10,
+            "title": "SanDisk SSD PLUS 1TB Internal SSD - SATA III 6 Gb/s",
+            "price": 109,
+            "description": "Easy upgrade for faster boot up, shutdown, application load and response (As compared to 5400 RPM SATA 2.5” hard drive; Based on published specifications and internal benchmarking tests using PCMark vantage scores) Boosts burst write performance, making it ideal for typical PC workloads The perfect balance of performance and reliability Read/write speeds of up to 535MB/s/450MB/s (Based on internal testing; Performance may vary depending upon drive capacity, host device, OS and application.)",
+            "category": "electronics",
+            "image": "https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg",
+            "rating": {
+                "rate": 2.9,
+                "count": 470
+            }
+        })
     }
 
-    const { data, isLoading, refetch, isFetching, error, isError, isSuccess } = useGetProductByIdQuery(10)
-    console.log("Data from parent: ", data);
-    console.log("Fetching from parent: ", isFetching);
+    const [addProduct, {isLoading, isError, error, isSuccess}] = useAddProductMutation()
+    console.log("IS SUCCESS: ", isSuccess);
 
-    // console.log(products);
-    // console.log(error);
-    // console.log(status);
+
     return (
         <div className='container my-5'>
             <h1>React Redux createAPI()</h1>

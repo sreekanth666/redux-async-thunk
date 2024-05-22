@@ -1,37 +1,45 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import axios from "axios";
 
-const customFetch = async(data, options) => {
-    // Gateway
-
-    console.log(options);
-    console.log(data.url);
+// Gateway
+const gateway = async (args, options) => {
+    console.log(args);
     const response = await axios({
-        url: data.url,
-        method: data.method,
+        url: "https://fakestoreapi.com/" + args.url,
+        method: args.method,
         headers: {
             "Content-Type": "application/json"
-        }
+        },
+        data: args.body
     })
-    console.log(response);
-    return response.data
+    return response
 }
 
 export const api = createApi({
     reducerPath: "products",
-    baseQuery: fetchBaseQuery({
-        baseUrl: "https://fakestoreapi.com/",
-        fetchFn: customFetch,
-    }),
+    baseQuery: async (args, api) => {
+        // console.log(api);
+        // common token
+        return gateway(args)
+    },
     endpoints: (builder) => ({
         getAllProducts: builder.query({
-            query: () => "products"
+            query: () => ({
+                url: "products",
+                method: "GET",
+            }),
+            providesTags: ["Products"],
         }),
-        getProductById: builder.query({
-            query: (productId) => `products/${productId}`,
-            keepUnusedDataFor: 60
+        addProduct: builder.mutation({
+            query: (reqBody) => ({
+                url: `products`,
+                method: "POST",
+                body: reqBody,
+                // specific token
+            }),
+            invalidatesTags: ["Products"],
         })
     })
 })
 
-export const { useGetAllProductsQuery, useGetProductByIdQuery } = api
+export const { useGetAllProductsQuery, useAddProductMutation } = api

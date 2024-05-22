@@ -1,7 +1,8 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { productThunk } from '../redux/productThunk'
-import { useGetProductByIdQuery } from '../redux/createApi.demo'
+import { useGetAllProductsQuery } from '../redux/createApi.demo'
+// import { useGetProductByIdQuery } from '../redux/createApi.demo'
 
 export default function FetchProducts() {
     const dispatch = useDispatch()
@@ -10,7 +11,7 @@ export default function FetchProducts() {
         dispatch(productThunk(10));
     }
 
-    const { data, isLoading, refetch, isFetching, error, isError, isSuccess, isUninitialized } = useGetProductByIdQuery(10)
+    const { data, isLoading, refetch, isFetching, error, isError, isSuccess, isUninitialized } = useGetAllProductsQuery()
     console.log("Data from child: ", data);
     console.log("Fetching from child: ", isFetching);
 
